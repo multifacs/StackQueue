@@ -4,6 +4,7 @@
 int main()
 {
 	TStack<int> a({ 5, 10, 22 });
+	cout << a.IsFull() << endl;
 	for (int i = 0; i < 3; i++)
 		cout << a.pop() << ' ';
 	

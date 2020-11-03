@@ -4,28 +4,48 @@ template<class A>
 class TQueue : public TStack<A>
 {
 protected:
-	int head;
+	int head, count;
 
 public:
-	TQueue() :TStack<A>() { head = 0; }
-	TQueue(TQueue& lhs) :TStack<A>(lhs) { head = lhs.head; }
-	TQueue(int _size) :TStack<A>(_size) { head = 0; }
-	TQueue(const std::initializer_list<A>& list) :TStack<A>(list) { head = 0; this->tail = 0; }
-	~TQueue() { head = 0; }
+	TQueue() :TStack<A>() { head = 0; count = 0; }
+	TQueue(TQueue& _q) :TStack<A>(_q) { head = _q.head; count = _q.count; }
+	TQueue(int _size) :TStack<A>(_size) { head = 0; count = 0; }
+	TQueue(const std::initializer_list<A>& list) :TStack<A>(list) { head = 0; this->tail = 0; count = this->size; }
+	~TQueue() { head = 0; count = 0; }
 
 	void push(A elem)
 	{
+		if (this->IsFull())
+			throw logic_error("queue full");
+		count++;
 		this->arr[this->tail] = elem;
 		this->tail = (this->tail + 1) % this->size;
 	}
 
 	A pop()
 	{
-		//if (head == this->tail)
-			//throw logic_error("queue empty");
+		if (this->IsEmpty())
+			throw logic_error("queue empty");
+		count--;
 		A temp = this->arr[head];
 		head = (head + 1) % this->size;
 		return temp;
+	}
+
+	bool IsFull()
+	{
+		if (count == size)
+			return true;
+		else
+			return false;
+	}
+
+	bool IsEmpty()
+	{
+		if (count == 0)
+			return true;
+		else
+			return false;
 	}
 
 	friend ostream& operator<<(ostream& ostr, const TQueue<A>& lhs)

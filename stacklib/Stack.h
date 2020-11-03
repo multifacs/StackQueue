@@ -16,7 +16,6 @@ public:
 	}
 	TStack(const TStack& other)
 	{
-		delete[] arr;
 		this->size = other.size;
 		this->arr = new A[size];
 		this->tail = other.tail;
@@ -54,16 +53,34 @@ public:
 
 	void push(A elem)
 	{
-		if (tail >= size) throw logic_error("out of range");
+		if (tail >= size)
+			throw logic_error("out of range");
 		arr[tail] = elem;
 		tail++;
 	}
 	A pop()
 	{
-		if (tail == 0) throw logic_error("stack empty");
+		if (tail == 0)
+			throw logic_error("stack empty");
 		A temp = arr[tail - 1];
 		tail--;
 		return temp;
+	}
+
+	bool IsFull()
+	{
+		if (tail == size)
+			return true;
+		else
+			return false;
+	}
+
+	bool IsEmpty()
+	{
+		if (tail == 0)
+			return true;
+		else
+			return false;
 	}
 
 	/*friend istream& operator>>(ostream& istr, const TStack<A>& lhs)
