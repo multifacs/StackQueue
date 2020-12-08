@@ -63,9 +63,57 @@ public:
 				for (int i = lhs.head; i < t; i++)
 					ostr << lhs.arr[i % lhs.size] << ' ';
 			}
-		ostr << endl;
 		return ostr;
 	}
 
+	//extra
 
+	A find_max_odd()
+	{
+		TQueue<A> t(*this);
+		A max = -1;
+		for (int i = 0; i < count; i++)
+		{
+			A temp = t.pop();
+			if ((temp > max) && (temp % 2 == 0))
+				max = temp;
+		}
+
+		return max;
+	}
+
+	void cleanse(A value)
+	{
+		TQueue<A> t(count);
+		int old_head = head;
+		int old_count = count;
+
+		for (int i = 0; i < old_count; i++)
+		{
+			A temp = pop();
+			if (temp % value != 0)
+				t.push(temp);
+		}
+
+		head = old_head;
+		tail = head;
+		old_count = t.count;
+
+		for (int i = 0; i < old_count; i++)
+		{
+			A temp = t.pop();
+			push(temp);
+		}
+	}
+
+	TStack<A> transform()
+	{
+		TQueue<A> t(*this);
+		TStack<A> result(this->size);
+		
+		for (int i = 0; i < this->count; i++)
+			result.push(t.pop());
+
+		return result;
+	}
 };

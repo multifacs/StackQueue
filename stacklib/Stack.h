@@ -51,6 +51,8 @@ public:
 		tail = size;
 	}
 
+	//TStack(const TQueue<A>& other)
+
 	void push(A elem)
 	{
 		if (tail >= size)
@@ -94,7 +96,6 @@ public:
 	{
 		for (int i = 0; i < lhs.tail; i++)
 			ostr << lhs.arr[i] << ' ';
-		ostr << endl;
 		return ostr;
 	}
 };
